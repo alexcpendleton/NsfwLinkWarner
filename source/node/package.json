@@ -1,0 +1,11 @@
+{
+  "name": "nsfw-link-warner",
+  "version": "1.0.0",
+  "description": "Makes NSFW links more noticeable",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Alexander Pendleton",
+  "license": "MIT"
+}
