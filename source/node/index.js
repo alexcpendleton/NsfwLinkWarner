@@ -6,7 +6,7 @@ class ShrinkuFacade {
     }
     buildNsfwWarnerFrom(url) {
         var self = this;
-        return this.shrinku.shrink({url:url})
+        return this.shrinku.shrink({url:url,unique:true})
             .then(function(result) {
                 var wrapped = self.wrapInWarning(result.hash);
                 return new Promise(function(resolve, reject) {
@@ -16,6 +16,17 @@ class ShrinkuFacade {
     }
     wrapInWarning(hash) {
         return `NSFW_${hash}_NSFW`;
+    }
+
+    unwrap(url) {
+        var hash = url.replace("NSFW_", "").replace("_NSFW", "");
+        return shrinku.unshrink({hash:hash})
+            .then(function(result) {
+                console.log("unshrink:", JSON.stringify(result));
+                return new Promise(function(resolve, reject) {
+                    resolve(result.url);
+                });
+            });
     }
 }
 var Shrinku = require("shrinku");
@@ -38,7 +49,10 @@ function prompt() {
             .then(function(result) {
                 console.log(`${typed}>`);
                 console.log(`${result}`);
-                prompt();
+                shrinker.unwrap(result).then(function(unwrapped) {
+                    console.log(`unwrapped:`, unwrapped);
+                    prompt();
+                })
             });
     });
 }
