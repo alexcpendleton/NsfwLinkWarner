@@ -36,10 +36,10 @@ serverless offline start
 
 You can create, retrieve, update, or delete todos with the following commands:
 
-### Create a Todo
+### Create a Cloak
 
 ```bash
-curl -X POST -H "Content-Type:application/json" http://localhost:3000/todos --data '{ "text": "Learn Serverless" }'
+curl -X POST -H "Content-Type:application/json" http://localhost:3000/cloaks --data '{ "uri": "https://google.com/?cloaked" }'
 ```
 
 Example Result:

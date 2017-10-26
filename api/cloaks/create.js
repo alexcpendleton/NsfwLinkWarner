@@ -1,17 +1,30 @@
 'use strict';
 
-const uuid = require('uuid');
+const shortid = require('shortid');
 const dynamodb = require('./dynamodb');
+shortid.characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const newid = shortid.generate;
 
 module.exports.create = (event, context, callback) => {
   const timestamp = new Date().getTime();
   const data = JSON.parse(event.body);
-  if (typeof data.text !== 'string') {
+  const uri = data.uri;
+  if (typeof uri !== 'string' || !uri) {
     console.error('Validation Failed');
     callback(null, {
       statusCode: 400,
       headers: { 'Content-Type': 'text/plain' },
-      body: 'Couldn\'t create the todo item.',
+      body: 'Couldn\'t create the Cloak item.',
+    });
+    return;
+  }
+  const maxLength = 1000;
+  if(uri.length > maxLength) {
+    console.error('Too long uri: ', uri);
+    callback(null, {
+      statusCode: 400,
+      headers: { 'Content-Type': 'text/plain' },
+      body: `Couldn't create the Cloak item. Uri must be under ${maxLength} characters.`,
     });
     return;
   }
@@ -19,11 +32,8 @@ module.exports.create = (event, context, callback) => {
   const params = {
     TableName: process.env.DYNAMODB_TABLE,
     Item: {
-      id: uuid.v1(),
-      text: data.text,
-      checked: false,
-      createdAt: timestamp,
-      updatedAt: timestamp,
+      id: newid(),
+      uri: uri
     },
   };
 
@@ -35,7 +45,7 @@ module.exports.create = (event, context, callback) => {
       callback(null, {
         statusCode: error.statusCode || 501,
         headers: { 'Content-Type': 'text/plain' },
-        body: 'Couldn\'t create the todo item.',
+        body: 'Couldn\'t create the Cloak item.',
       });
       return;
     }
