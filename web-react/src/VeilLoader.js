@@ -5,8 +5,6 @@ class VeilLoader extends Component {
   constructor(props) {
     super(props);
     if(!props.api) throw new Error("api prop is required");
-    console.log("Veil loader props:", props);
-    console.log("Veil loader arguments:", arguments);
     this.state = {
       loading: true,
       loaded: null,

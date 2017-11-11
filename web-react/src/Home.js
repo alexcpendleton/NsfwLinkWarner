@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import logo from './screen.png';
 import Submit from './Submit'
 
 class Home extends Component {
@@ -8,15 +8,16 @@ class Home extends Component {
   }
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to NsfwNsfw</h1>
-        </header>
-        <p className="App-intro">
-          Give your friends an obvious heads up that this link is pretty suss.
-        </p>
-        <Submit api={this.props.api} />
+      <div className="container" id="home-container">
+        <div class="card" >
+          <div class="card-body">
+            <h1 class="card-title">NsfwNsfw.com</h1>
+            <h3 class="card-subtitle">Give your friends an obvious heads up that this link is pretty suss.</h3>
+            <p class="card-text">
+            <Submit api={this.props.api} />
+            </p>
+          </div>
+        </div>
       </div>
     );
   }

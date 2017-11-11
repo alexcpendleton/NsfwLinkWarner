@@ -42,14 +42,13 @@ class Submit extends Component {
   }
   render() {
     return (
-      <form className="submit" onSubmit={this.handleSubmit}>
-        <label>
-          Protect your friends
-          <input type="text" value={this.state.urlToMask} onChange={this.handleChange} placeholder="Your original URL here" />
-        </label>
-        <input type="submit" value="Submit" />
+      <form className="submit-form" onSubmit={this.handleSubmit}>
+        <div className="row">
+          <input type="text" value={this.state.urlToMask} onChange={this.handleChange} placeholder="Your original URL here" className="url original-url col-9 col" />  
+          <input type="submit" value="Submit" className="submit-button col-3 col" />
+        </div>
         {this.renderJustCreated()}
-        <p id="disclaimer">All nsfwnsfw.com links are public and can be accessed by anyone!</p>
+        <p id="disclaimer" className="row">All nsfwnsfw.com links are public and can be accessed by anyone!</p>
       </form>
     );
   }
@@ -57,9 +56,9 @@ class Submit extends Component {
     if(!this.state.justCreated) return "";
     const safeUrl = this.state.justCreated.safeUrl;
     return (
-      <div id="justCreated">
-        <input type="text" value={safeUrl} readOnly/>
-        <a href={safeUrl}>Go see it</a>
+      <div id="justCreated" className="row">
+        <input type="text" value={safeUrl} readOnly className="url col-9 col"/>
+        <a href={safeUrl} className="paper-btn center col-3 col">Go see it</a>
       </div>
     );
   }
