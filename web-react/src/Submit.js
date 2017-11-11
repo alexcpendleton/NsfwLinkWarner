@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 class Submit extends Component {
   constructor(props) {
     super(props);
-    if(!props.api) throw new Error("api prop is required");
-    this.state = {value: ''};
+    //if(!props.api) throw new Error("api prop is required");
+    this.state = {urlToMask: ''};
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -58,7 +58,7 @@ class Submit extends Component {
     const safeUrl = this.state.justCreated.safeUrl;
     return (
       <div id="justCreated">
-        <input type="text" value={safeUrl} />
+        <input type="text" value={safeUrl} readOnly/>
         <a href={safeUrl}>Go see it</a>
       </div>
     );

@@ -1,30 +1,36 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import ReactDOM from 'react-dom';
 import './App.css';
 
 import createApi from './FakeApi'
 
-import Submit from './Submit'
+import Home from './Home'
+import VeilLoader from './VeilLoader'
 
+import { 
+  BrowserRouter as Router,
+  Route
+} from 'react-router-dom'
 class App extends Component {
   constructor(props) {
     super(props);
     this.api = createApi("http://localhost:3000");
   }
   render() {
+    const api = this.api;
+    console.log("render api", api);
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to NsfwNsfw</h1>
-        </header>
-        <p className="App-intro">
-          Give your friends an obvious heads up that this link is pretty suss.
-        </p>
-        <Submit api={this.api} />
-      </div>
+    <Router>
+        <div id="routes">
+          <Route exact path="/NSFW/:id/NSFW" render={(props)=>(
+            <VeilLoader {...props} api={api} />
+          )}/>
+          <Route exact path="/" render={(props)=>{
+            return (<Home {...props} api={api} />)}
+          }/>
+        </div>
+    </Router>
     );
   }
 }
-
 export default App;
