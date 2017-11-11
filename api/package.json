@@ -1,5 +1,5 @@
 {
-  "name": "nsfwnsfw",
+  "name": "nsfwnsfw-api",
   "version": "1.0.0",
   "description": "Serverless REST API with DynamoDB and offline support",
   "repository": "",
