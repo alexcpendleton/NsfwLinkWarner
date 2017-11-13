@@ -18,15 +18,18 @@ module.exports.get = (event, context, callback) => {
       callback(null, {
         statusCode: error.statusCode || 501,
         headers: { 'Content-Type': 'text/plain' },
-        body: 'Couldn\'t fetch the Cloak item.',
+        body: 'Couldn\'t fetch the veil item.',
       });
       return;
     }
 
+    const output = Object.assign({}, result.Item, {
+      showAds: true
+    });
     // create a response
     const response = {
       statusCode: 200,
-      body: JSON.stringify(result.Item),
+      body: JSON.stringify(),
     };
     callback(null, response);
   });

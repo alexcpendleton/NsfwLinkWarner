@@ -8,23 +8,23 @@ const newid = shortid.generate;
 module.exports.create = (event, context, callback) => {
   const timestamp = new Date().getTime();
   const data = JSON.parse(event.body);
-  const uri = data.uri;
-  if (typeof uri !== 'string' || !uri) {
+  const unsafeUrl = data.unsafeUrl;
+  if (typeof unsafeUrl !== 'string' || !unsafeUrl) {
     console.error('Validation Failed');
     callback(null, {
       statusCode: 400,
       headers: { 'Content-Type': 'text/plain' },
-      body: 'Couldn\'t create the Cloak item.',
+      body: 'Couldn\'t create the veil item.',
     });
     return;
   }
   const maxLength = 1000;
-  if(uri.length > maxLength) {
-    console.error('Too long uri: ', uri);
+  if(unsafeUrl.length > maxLength) {
+    console.error('Too long uri: ', unsafeUrl);
     callback(null, {
       statusCode: 400,
       headers: { 'Content-Type': 'text/plain' },
-      body: `Couldn't create the Cloak item. Uri must be under ${maxLength} characters.`,
+      body: `Couldn't create the veil item. unsafeUrl must be under ${maxLength} characters.`,
     });
     return;
   }
@@ -33,7 +33,7 @@ module.exports.create = (event, context, callback) => {
     TableName: process.env.DYNAMODB_TABLE,
     Item: {
       id: newid(),
-      uri: uri
+      unsafeUri: unsafeUrl
     },
   };
 
@@ -45,7 +45,7 @@ module.exports.create = (event, context, callback) => {
       callback(null, {
         statusCode: error.statusCode || 501,
         headers: { 'Content-Type': 'text/plain' },
-        body: 'Couldn\'t create the Cloak item.',
+        body: 'Couldn\'t create the veil item.',
       });
       return;
     }

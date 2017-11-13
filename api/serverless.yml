@@ -33,40 +33,23 @@ provider:
 
 functions:
   create:
-    handler: cloaks/create.create
+    handler: veils/create.create
     events:
       - http:
-          path: cloaks
+          path: veils
           method: post
           cors: true
-
-  list:
-    handler: cloaks/list.list
-    events:
-      - http:
-          path: cloaks
-          method: get
-          cors: true
-
   get:
-    handler: cloaks/get.get
+    handler: veils/get.get
     events:
       - http:
-          path: cloaks/{id}
+          path: veils/{id}
           method: get
-          cors: true
-
-  delete:
-    handler: cloaks/delete.delete
-    events:
-      - http:
-          path: cloaks/{id}
-          method: delete
           cors: true
 
 resources:
   Resources:
-    CloaksDynamoDbTable:
+    veilsDynamoDbTable:
       Type: 'AWS::DynamoDB::Table'
       DeletionPolicy: Retain
       Properties:

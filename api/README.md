@@ -36,10 +36,10 @@ serverless offline start
 
 You can create, retrieve, update, or delete todos with the following commands:
 
-### Create a Cloak
+### Create a veil
 
 ```bash
-curl -X POST -H "Content-Type:application/json" http://localhost:3000/cloaks --data '{ "uri": "https://google.com/?cloaked" }'
+curl -X POST -H "Content-Type:application/json" http://localhost:3000/veils --data '{ "uri": "https://google.com/?veiled" }'
 ```
 
 Example Result:
