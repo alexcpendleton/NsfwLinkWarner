@@ -31,11 +31,11 @@ class Submit extends Component {
   create() {
     const urlToMask = this.state.urlToMask;
     return this.props.api
-      .create()
+      .create(urlToMask)
       .then(this.displayCreated, this.displayProblem)
   }
-  displayCreated({safeUrl}) {
-    this.setState({justCreated:{safeUrl}});
+  displayCreated(data) {
+    this.setState({justCreated:{safeUri:data.safeUri}});
   }
   displayProblem(problem) {
     console.error(problem);
@@ -54,11 +54,11 @@ class Submit extends Component {
   }
   renderJustCreated() {
     if(!this.state.justCreated) return "";
-    const safeUrl = this.state.justCreated.safeUrl;
+    const safeUri = this.state.justCreated.safeUri;
     return (
       <div id="justCreated" className="row">
-        <input type="text" value={safeUrl} readOnly className="url col-9 col"/>
-        <a href={safeUrl} className="paper-btn center col-3 col">Go see it</a>
+        <input type="text" value={safeUri} readOnly className="url col-9 col"/>
+        <a href={safeUri} className="paper-btn center col-3 col">Go see it</a>
       </div>
     );
   }

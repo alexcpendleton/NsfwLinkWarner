@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import './App.css';
 import './paper.min.css';
 
-import createApi from './FakeApi'
+import createApi from './WebApi'
 
 import Home from './Home'
 import VeilLoader from './VeilLoader'
@@ -19,13 +18,16 @@ class App extends Component {
     super(props);
     function inferBaseUri() {
       return window.location.origin;
+    };
+    const apiParams = {
+      uriPrePath: inferBaseUri(), 
+      apiBaseUri: "https://m4np7k4snf.execute-api.us-east-1.amazonaws.com/dev/"
     }
-    this.api = createApi(inferBaseUri());
+    this.api = createApi(apiParams);
   }
 
   render() {
     const api = this.api;
-    console.log("render api", api);
     return (
     <Router>
         <Switch id="routes">

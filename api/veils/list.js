@@ -15,7 +15,7 @@ module.exports.list = (event, context, callback) => {
       callback(null, {
         statusCode: error.statusCode || 501,
         headers: { 'Content-Type': 'text/plain' },
-        body: 'Couldn\'t fetch the veil item.',
+        body: 'Couldn\'t fetch the veil items.',
       });
       return;
     }
@@ -24,6 +24,9 @@ module.exports.list = (event, context, callback) => {
     const response = {
       statusCode: 200,
       body: JSON.stringify(result.Items),
+      headers: {
+        "Access-Control-Allow-Origin" : "*" // Required for CORS support to work
+      },
     };
     callback(null, response);
   });

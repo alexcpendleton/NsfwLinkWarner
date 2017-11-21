@@ -1,25 +1,21 @@
 import React, {Component} from 'react';
-import logo from './screen.png'
+
 class Veil extends Component {
-  constructor(props) {
-    super(props);
-    //if(!props.api) throw new Error("api prop is required");
-  }
   render() {
-    const unsafeUrl = this.props.data.unsafeUrl;
+    const unsafeUri = this.props.data.unsafeUri;
     return (
-      <div class="container">
+      <div className="container">
         <div className="row flex-center">
           <div id="veil" className="">
             <div className="card">
               <div className="card-header">
                 <h3 className="margin-small">Hey, be careful!</h3>
               </div>
-              <div class="card-body">
+              <div className="card-body">
                 <p className="card-text">
                   This might be risky to open at work or in a public space.
                 </p>
-                <a className="row paper-btn unsafe-url" href={unsafeUrl}>{unsafeUrl}</a>
+                <a className="row paper-btn unsafe-uri" href={unsafeUri}>{unsafeUri}</a>
                 {this.renderAds()}
               </div>
             </div>
@@ -40,7 +36,7 @@ class Veil extends Component {
 };
 Veil.defaultProps = {
   data: {
-    unsafeUrl: '',
+    unsafeUri: '',
     showAds: true
   }
 };

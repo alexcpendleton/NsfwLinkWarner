@@ -39,6 +39,13 @@ functions:
           path: veils
           method: post
           cors: true
+  list:
+    handler: veils/list.list
+    events:
+      - http:
+          path: veils
+          method: get
+          cors: true
   get:
     handler: veils/get.get
     events:
