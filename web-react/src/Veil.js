@@ -18,6 +18,9 @@ class Veil extends Component {
                 <a className="row paper-btn unsafe-uri" href={unsafeUri}>{unsafeUri}</a>
                 {this.renderAds()}
               </div>
+              <div class="card-footer">
+                Make your own at <a href="https://www.nsfwnsfw.com/">nsfwnsfw.com</a>!
+              </div>
             </div>
           </div>
         </div>
