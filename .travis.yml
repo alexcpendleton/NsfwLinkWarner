@@ -9,6 +9,6 @@ script:
 deploy:
   skip_cleanup: true
   provider: script
-  script: deploy-web-react.sh
+  script: sh deploy-web-react.sh
   on:
     branch: master
