@@ -7,18 +7,17 @@ function init({uriPrePath, apiBaseUri}) {
   result.create = (unsafeUri) => {
     return new Promise((resolve, reject)=>{
       const handleSuccess = (response) => {
-        console.log("create success call:", response);
         if(response.ok) {
-          const json = response.json().data;
-          const id = json.id;
-          const created = {
-            safeUri: uriPrePath + `/NSFW/${id}/NSFW`
-          }
-          resolve(created);
+          response.json().then((json)=> {
+            const id = json.id;
+            const created = {
+              safeUri: uriPrePath + `/NSFW/${id}/NSFW`
+            };
+            resolve(created);
+          }, reject);
         } else {
           var error = new Error('Not ok');
           error.response = response;
-          console.log("create success, but not ok:", error); 
           reject(error);
         }
       };
@@ -37,13 +36,11 @@ function init({uriPrePath, apiBaseUri}) {
   result.fetch = (id) => {
     return new Promise((resolve, reject)=>{
       const handleSuccess = (response) => {
-        console.log("create success call:", response);
         if(response.ok) {
-          resolve(response.body.json);
+          response.json().then(resolve, reject);
         } else {
           var error = new Error('Not ok');
           error.response = response;
-          console.log("create success, but not ok:", error); 
           reject(error);
         }
       };
@@ -51,8 +48,7 @@ function init({uriPrePath, apiBaseUri}) {
         method:'GET',
         mode: 'cors',
         cache: 'default',
-        headers: new Headers({'content-type': 'application/json'}),
-
+        headers: new Headers({'content-type': 'application/json'})
       }).then(handleSuccess, reject);
     });
   };
