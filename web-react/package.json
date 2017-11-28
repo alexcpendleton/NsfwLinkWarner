@@ -1,5 +1,5 @@
 {
-  "name": "web-react",
+  "name": "nsfwnsfw.com--web-react",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -15,7 +15,7 @@
     "build": "CI=true&&react-scripts build",
     "test": "CI=true&&react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "predeploy": "npm run build",
+    "predeploy": "CI=true&&react-scripts build",
     "deploy": "firebase deploy"
   }
 }
