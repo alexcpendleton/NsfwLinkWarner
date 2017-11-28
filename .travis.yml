@@ -5,8 +5,7 @@ cache:
   directories:
   - web-react/node_modules
 script:
-- cd web-react && yarn build
-- cd web-react && yarn test
+- sh build-web-react.sh
 before_deploy: "cd web-react"
 deploy:
   skip_cleanup: true
