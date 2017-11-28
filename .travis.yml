@@ -5,7 +5,7 @@ cache:
   directories:
   - web-react/node_modules
 script:
-- build-web-react.sh
+- sh build-web-react.sh
 before_deploy: "cd web-react"
 deploy:
   skip_cleanup: true
