@@ -4,7 +4,7 @@ class Submit extends Component {
   constructor(props) {
     super(props);
     //if(!props.api) throw new Error("api prop is required");
-    this.state = {urlToMask: ''};
+    this.state = {urlToMask: '',justCreated:{safeUri:"https://www.nsfwnsfw.com/NSFW/test/NSFW"}};
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -42,14 +42,18 @@ class Submit extends Component {
   }
   render() {
     return (
-      <form className="submit-form" onSubmit={this.handleSubmit}>
-        <div className="row">
-          <input type="text" value={this.state.urlToMask} onChange={this.handleChange} placeholder="Your original URL here" className="url original-url col-9 col" />  
-          <input type="submit" value="Submit" className="submit-button col-3 col" />
-        </div>
-        {this.renderJustCreated()}
-        <p id="disclaimer" className="row">All nsfwnsfw.com links are public and can be accessed by anyone!</p>
-      </form>
+      <div>
+        <form className="submit-form" onSubmit={this.handleSubmit}>
+          <div className="row">
+            <input type="text" value={this.state.urlToMask} onChange={this.handleChange} placeholder="Your original URL here" className="url original-url col-9 col" />  
+            <input type="submit" value="Submit" className="submit-button col-3 col" />
+          </div>
+        </form>
+        <form className="submit-form">
+          {this.renderJustCreated()}
+          <p id="disclaimer" className="row">All nsfwnsfw.com links are public and can be accessed by anyone!</p>
+        </form>
+      </div>
     );
   }
   renderJustCreated() {
@@ -57,8 +61,9 @@ class Submit extends Component {
     const safeUri = this.state.justCreated.safeUri;
     return (
       <div id="justCreated" className="row">
-        <input type="text" value={safeUri} readOnly className="url col-9 col"/>
-        <a href={safeUri} className="paper-btn center col-3 col">Go see it</a>
+        <input type="text" value={safeUri} readOnly className="url col-8 col"/>
+        <input type="submit" value="Copy" className="submit-button center col-2" />
+        <a href={safeUri} className="submit-button btn center col-2 col">Go see it</a>
       </div>
     );
   }
