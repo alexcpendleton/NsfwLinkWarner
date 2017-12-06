@@ -17,6 +17,6 @@
     "test": "CI=true&&react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "predeploy": "CI=true&&react-scripts build",
-    "deploy": "firebase deploy"
+    "deploy": "aws s3 sync build/ s3://www.nsfwnsfw.com --acl public-read"
   }
 }

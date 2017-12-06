@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 
 class Veil extends Component {
   render() {
-    const unsafeUri = this.props.data.unsafeUri;
     return (
       <div className="container">
         <div className="row flex-center">
@@ -12,13 +11,10 @@ class Veil extends Component {
                 <h3 className="margin-small">Hey, be careful!</h3>
               </div>
               <div className="card-body">
-                <p className="card-text">
-                  This might be risky to open at work or in a public space.
-                </p>
-                <a className="row paper-btn unsafe-uri" href={unsafeUri}>{unsafeUri}</a>
+                {this.renderBody()}
                 {this.renderAds()}
               </div>
-              <div class="card-footer">
+              <div className="card-footer">
                 Make your own at <a href="https://www.nsfwnsfw.com/">nsfwnsfw.com</a>!
               </div>
             </div>
@@ -27,8 +23,26 @@ class Veil extends Component {
       </div>
     );
   }
+  renderBody() {
+    if(this.props.loading) 
+      return this.renderLoading();
+    else 
+      return this.renderContent();
+  }
+  renderContent() {
+    const unsafeUri = this.props.data.unsafeUri;
+    return <div>
+      <p className="card-text">
+        This might be risky to open at work or in a public space.
+      </p>
+      <a className="row paper-btn unsafe-uri" href={unsafeUri}>{unsafeUri}</a>
+    </div>
+  }
+  renderLoading() {
+    return <div>Loading...</div>
+  }
   renderAds() {
-    if (!this.props.data.showAds) 
+    if (!this.props.data || !this.props.data.showAds) 
       return ""
     return (
       <div className="card-text adspace">
@@ -36,6 +50,7 @@ class Veil extends Component {
       </div>
     )
   }
+
 };
 Veil.defaultProps = {
   data: {
