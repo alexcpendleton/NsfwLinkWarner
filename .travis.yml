@@ -12,7 +12,7 @@ deploy:
   local_dir: web-react/build
   on:
     branch: master
-  bucket: nsfwnsfw-web-react-prod
+  bucket: www.nsfwnsfw.com
   acl: public_read
   access_key_id: "AKIAIOQMFHFMNBHNJFIA"
   secret_access_key:
