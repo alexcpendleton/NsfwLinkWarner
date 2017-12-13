@@ -5,6 +5,8 @@ class Submit extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      defaultSubmitButtonText: "Submit",
+      submitButtonText: "Submit",
       urlToMask: '',
       copyButtonText:"Copy"
     };
@@ -26,12 +28,23 @@ class Submit extends Component {
     this.handleValidation()
       .then(this.create, this.displayProblem);
   }
+  handleLoading() {
+    this.setState({
+      submitButtonText:"Loading..."
+    });
+  }
+  handleLoadingFinished() {
+    this.setState({
+      submitButtonText:this.state.defaultSubmitButtonText
+    });
+  }
   handleValidation() {
     return new Promise((resolve, reject)=>{
       resolve();
     });
   }
   create() {
+    this.handleLoading();
     this.clearError();
     const urlToMask = this.state.urlToMask;
     return this.props.api
@@ -39,6 +52,7 @@ class Submit extends Component {
       .then(this.displayCreated, this.displayProblem)
   }
   displayCreated(data) {
+    this.handleLoadingFinished();
     this.clearError();
     this.setState({justCreated:{safeUri:data.safeUri}});
     this.focusSafeUriInput();
@@ -50,6 +64,7 @@ class Submit extends Component {
     }
   }
   displayProblem(problem) {
+    this.handleLoadingFinished();
     this.setState({error:problem})
   }
   clearError() {
@@ -61,7 +76,7 @@ class Submit extends Component {
         <form className="submit-form" onSubmit={this.handleSubmit}>
           <div className="row">
             <input type="text" value={this.state.urlToMask} onChange={this.handleChange} placeholder="Your original URL here" className="url original-url col-9 col" />  
-            <input type="submit" value="Submit" className="submit-button col-3 col" />
+            <input type="submit" value={this.state.submitButtonText} className="paper-btn pseudo-submit-button col-3 col" />
           </div>
         </form>
         <form className="submit-form">
@@ -78,7 +93,7 @@ class Submit extends Component {
     return (
       <div id="justCreated" className="row">
         <input type="text" value={safeUri} readOnly className="url col-8 col" id="safe-uri" ref={(i)=>this.safeUriInput = i}/>
-        <button onClick={this.handleCopyClick} className="copy-button pseudo-submit-button center col-2">{this.state.copyButtonText}</button>
+        <button onClick={this.handleCopyClick} className="copy-button paper-btn pseudo-submit-button center col-2">{this.state.copyButtonText}</button>
         <a href={safeUri} className="paper-btn pseudo-submit-button center col-2 col">Go see it</a>
       </div>
     );
