@@ -38,7 +38,10 @@ class VeilLoader extends Component {
   }
   render() {
     const data = this.state.loaded;
-    return <Veil loading={this.state.loading} data={data} />
+    const error = this.state.error;
+    const loading = this.state.loading;
+    const props = {loading,data,error};
+    return <Veil {...props} />
   }
 }
 

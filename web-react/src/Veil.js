@@ -26,8 +26,9 @@ class Veil extends Component {
   renderBody() {
     if(this.props.loading) 
       return this.renderLoading();
-    else 
-      return this.renderContent();
+    else if (this.props.error) 
+      return this.renderError();
+    return this.renderContent();
   }
   renderContent() {
     const unsafeUri = this.props.data.unsafeUri;
@@ -39,15 +40,18 @@ class Veil extends Component {
     </div>
   }
   renderLoading() {
-    return <div>Loading...</div>
+    return <p>Loading...</p>
+  }
+  renderError(error) {
+    return <p className="col sm-12 border border-danger text-danger background-danger">Sorry, there was a problem. :(</p>
   }
   renderAds() {
     if (!this.props.data || !this.props.data.showAds) 
       return ""
     return (
-      <div className="card-text adspace">
+      <p className="card-text adspace">
         A tasteful ad may go here.
-      </div>
+      </p>
     )
   }
 

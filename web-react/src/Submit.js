@@ -21,7 +21,6 @@ class Submit extends Component {
   handleChange(event) {
     this.setState({urlToMask: event.target.value});
   }
-
   handleSubmit(event) {
     event.preventDefault();
     this.handleValidation()
@@ -33,12 +32,14 @@ class Submit extends Component {
     });
   }
   create() {
+    this.clearError();
     const urlToMask = this.state.urlToMask;
     return this.props.api
       .create(urlToMask)
       .then(this.displayCreated, this.displayProblem)
   }
   displayCreated(data) {
+    this.clearError();
     this.setState({justCreated:{safeUri:data.safeUri}});
     this.focusSafeUriInput();
   }
@@ -49,7 +50,10 @@ class Submit extends Component {
     }
   }
   displayProblem(problem) {
-    console.error(problem);
+    this.setState({error:problem})
+  }
+  clearError() {
+    this.setState({error:false})
   }
   render() {
     return (
@@ -68,6 +72,7 @@ class Submit extends Component {
     );
   }
   renderJustCreated() {
+    if(this.state.error) return this.renderError();
     if(!this.state.justCreated) return "";
     const safeUri = this.state.justCreated.safeUri;
     return (
@@ -77,6 +82,13 @@ class Submit extends Component {
         <a href={safeUri} className="paper-btn pseudo-submit-button center col-2 col">Go see it</a>
       </div>
     );
+  }
+  renderError() {
+    return (
+      <div className="row">
+        <div className="col sm-12 border border-danger background-danger text-danger">Sorry, there was a problem. Try again! :(</div>
+      </div>
+    )
   }
   handleCopyClick(event) {
     this.copySafeUriToClipboard();
