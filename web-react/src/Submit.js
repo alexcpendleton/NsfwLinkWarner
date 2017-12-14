@@ -5,8 +5,6 @@ class Submit extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      defaultSubmitButtonText: "Submit",
-      submitButtonText: "Submit",
       urlToMask: '',
       copyButtonText:"Copy"
     };
@@ -20,6 +18,46 @@ class Submit extends Component {
     this.handleCopyClick = this.handleCopyClick.bind(this);
   }
 
+  render() {
+    const isLoading = this.state.loading;
+    const containerClass = isLoading ? "loading":"";
+    return (
+      <div className={containerClass}>
+        <form className="submit-form" onSubmit={this.handleSubmit}>
+          <div className="row">
+            <input type="text" value={this.state.urlToMask} onChange={this.handleChange} placeholder="Your original URL here" className="url original-url col-9 col" />  
+            <button type="submit" className="paper-btn pseudo-submit-button col-3 col">
+              <div className="normal-text">Submit</div>
+              <div className="spinner">&nbsp;</div>
+            </button>
+          </div>
+        </form>
+        <form className="submit-form">
+          {this.renderJustCreated()}
+          <p id="disclaimer" className="row">All nsfwnsfw.com links are public and can be accessed by anyone!</p>
+        </form>
+      </div>
+    );
+  }
+  renderJustCreated() {
+    if(this.state.error) return this.renderError();
+    if(!this.state.justCreated) return "";
+    const safeUri = this.state.justCreated.safeUri;
+    return (
+      <div id="justCreated" className="row">
+        <input type="text" value={safeUri} readOnly className="url col-8 col" id="safe-uri" ref={(i)=>this.safeUriInput = i}/>
+        <button onClick={this.handleCopyClick} className="copy-button paper-btn pseudo-submit-button center col-2">{this.state.copyButtonText}</button>
+        <a href={safeUri} className="paper-btn pseudo-submit-button center col-2 col">Go see it</a>
+      </div>
+    );
+  }
+  renderError() {
+    return (
+      <div className="row">
+        <div className="col sm-12 border border-danger background-danger text-danger">Sorry, there was a problem. Try again! :(</div>
+      </div>
+    )
+  }
   handleChange(event) {
     this.setState({urlToMask: event.target.value});
   }
@@ -30,12 +68,12 @@ class Submit extends Component {
   }
   handleLoading() {
     this.setState({
-      submitButtonText:"Loading..."
+      loading: true
     });
   }
   handleLoadingFinished() {
     this.setState({
-      submitButtonText:this.state.defaultSubmitButtonText
+      loading: false
     });
   }
   handleValidation() {
@@ -69,41 +107,6 @@ class Submit extends Component {
   }
   clearError() {
     this.setState({error:false})
-  }
-  render() {
-    return (
-      <div>
-        <form className="submit-form" onSubmit={this.handleSubmit}>
-          <div className="row">
-            <input type="text" value={this.state.urlToMask} onChange={this.handleChange} placeholder="Your original URL here" className="url original-url col-9 col" />  
-            <input type="submit" value={this.state.submitButtonText} className="paper-btn pseudo-submit-button col-3 col" />
-          </div>
-        </form>
-        <form className="submit-form">
-          {this.renderJustCreated()}
-          <p id="disclaimer" className="row">All nsfwnsfw.com links are public and can be accessed by anyone!</p>
-        </form>
-      </div>
-    );
-  }
-  renderJustCreated() {
-    if(this.state.error) return this.renderError();
-    if(!this.state.justCreated) return "";
-    const safeUri = this.state.justCreated.safeUri;
-    return (
-      <div id="justCreated" className="row">
-        <input type="text" value={safeUri} readOnly className="url col-8 col" id="safe-uri" ref={(i)=>this.safeUriInput = i}/>
-        <button onClick={this.handleCopyClick} className="copy-button paper-btn pseudo-submit-button center col-2">{this.state.copyButtonText}</button>
-        <a href={safeUri} className="paper-btn pseudo-submit-button center col-2 col">Go see it</a>
-      </div>
-    );
-  }
-  renderError() {
-    return (
-      <div className="row">
-        <div className="col sm-12 border border-danger background-danger text-danger">Sorry, there was a problem. Try again! :(</div>
-      </div>
-    )
   }
   handleCopyClick(event) {
     this.copySafeUriToClipboard();
