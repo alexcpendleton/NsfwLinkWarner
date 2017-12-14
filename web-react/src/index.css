@@ -2,4 +2,28 @@ body {
   margin: 0;
   padding: 0;
 }
-#justCreated .pseudo-submit-button {padding:20px; text-align: center;}
+.paper-btn.pseudo-submit-button {padding:20px; text-align: center;cursor:pointer;}
+
+@keyframes spinner {
+  to {transform: rotate(360deg);}
+}
+ 
+.loading .spinner:before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  border-top-color: #333;
+  animation: spinner .6s linear infinite;
+}
+.loading .normal-text {display:none;}
+.spinner {display:none;}
+.loading .spinner {display:block;position:relative;content:''}
+#root .hoverlike-box-shadow { box-shadow: 2px 8px 4px -6px rgba(0,0,0,.3);}
