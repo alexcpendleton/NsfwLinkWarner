@@ -36,11 +36,14 @@ class Veil extends Component {
       <p className="card-text">
         This might be risky to open at work or in a public space.
       </p>
-      <a className="row paper-btn unsafe-uri" href={unsafeUri}>{unsafeUri}</a>
+      <a className="row paper-btn unsafe-uri hoverlike-box-shadow" href={unsafeUri}>{unsafeUri}</a>
     </div>
   }
   renderLoading() {
-    return <p>Loading...</p>
+    return <div className="loading">
+      <div className="spinner">&nbsp;</div>
+      <p className="loadingText">Loading...</p>
+    </div>
   }
   renderError(error) {
     return <p className="col sm-12 border border-danger text-danger background-danger">Sorry, there was a problem. :(</p>
