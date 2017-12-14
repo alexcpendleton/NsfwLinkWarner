@@ -32,15 +32,24 @@ class Veil extends Component {
   }
   renderContent() {
     const unsafeUri = this.props.data.unsafeUri;
+    setTimeout(()=>this.focusUnsafeUriInput(), 200);
     return <div>
       <p className="card-text">
         This might be risky to open at work or in a public space.
       </p>
-      <a className="row paper-btn unsafe-uri" href={unsafeUri}>{unsafeUri}</a>
+      <div className="row">
+        <input type="text" readOnly value={unsafeUri} className="unsafe-uri col sm-12" ref={(i)=>this.unsafeUriInput = i} />
+      </div>
+      <div className="row flex-center">
+        <a href={unsafeUri} className="paper-btn hoverlike-box-shadow pseudo-submit-button col sm-4">Open -></a>
+      </div>
     </div>
   }
   renderLoading() {
-    return <p>Loading...</p>
+    return <div className="loading">
+      <div className="spinner">&nbsp;</div>
+      <p className="loadingText">Loading...</p>
+    </div>
   }
   renderError(error) {
     return <p className="col sm-12 border border-danger text-danger background-danger">Sorry, there was a problem. :(</p>
@@ -53,6 +62,12 @@ class Veil extends Component {
         A tasteful ad may go here.
       </p>
     )
+  }
+  focusUnsafeUriInput() {
+    if(this.unsafeUriInput) {
+      this.unsafeUriInput.focus();
+      this.unsafeUriInput.select();
+    }
   }
 
 };

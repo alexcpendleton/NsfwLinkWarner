@@ -12,6 +12,8 @@ class VeilLoader extends Component {
     };
     this.load = this.load.bind(this);
     this.loadFromMatch = this.loadFromMatch.bind(this);
+  }
+  componentWillMount() {
     this.loadFromMatch();
   }
   loadFromMatch() {
@@ -19,7 +21,6 @@ class VeilLoader extends Component {
     this.load(id);
   }
   load(id) {
-    this.setState({loading:true});
     const onSuccess = (data)=>{
       this.setState({
         loaded:data,
@@ -33,6 +34,7 @@ class VeilLoader extends Component {
         loaded:null
       });
     }
+    this.setState({loading:true});
     this.props.api.fetch(id)
       .then(onSuccess, onFailure);
   }
