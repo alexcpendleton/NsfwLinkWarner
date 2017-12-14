@@ -6,7 +6,7 @@ class Veil extends Component {
       <div className="container">
         <div className="row flex-center">
           <div id="veil" className="">
-            <div className="card">
+            <div className="card hoverlike-box-shadow">
               <div className="card-header">
                 <h3 className="margin-small">Hey, be careful!</h3>
               </div>
@@ -15,7 +15,7 @@ class Veil extends Component {
                 {this.renderAds()}
               </div>
               <div className="card-footer">
-                Make your own at <a href="https://www.nsfwnsfw.com/">nsfwnsfw.com</a>!
+                Make your own at <a href="https://www.nsfwnsfw.com/" className="">nsfwnsfw.com</a>!
               </div>
             </div>
           </div>

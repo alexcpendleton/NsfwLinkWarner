@@ -21,6 +21,14 @@ function init({uriPrePath, apiBaseUri}) {
           reject(error);
         }
       };
+      
+      if(!unsafeUri) {
+        const emptyUriError = new Error();
+        emptyUriError.name = "EmptySafeUri";
+        emptyUriError.friendlyMessage = "Please enter a URL! :)";
+        return reject(emptyUriError);
+      }
+
       fetchRelative('veils', {
         method:'POST',
         mode: 'cors',

@@ -25,8 +25,8 @@ class Submit extends Component {
       <div className={containerClass}>
         <form className="submit-form" onSubmit={this.handleSubmit}>
           <div className="row">
-            <input type="text" value={this.state.urlToMask} onChange={this.handleChange} placeholder="Your original URL here" className="url original-url col-9 col" />  
-            <button type="submit" className="paper-btn pseudo-submit-button col-3 col">
+            <input type="text" value={this.state.urlToMask} onChange={this.handleChange} placeholder="Your original URL here" className="url original-url col-9 col hoverlike-box-shadow" />
+            <button type="submit" className="paper-btn pseudo-submit-button col-3 col hoverlike-box-shadow">
               <div className="normal-text">Submit</div>
               <div className="spinner">&nbsp;</div>
             </button>
@@ -46,15 +46,17 @@ class Submit extends Component {
     return (
       <div id="justCreated" className="row">
         <input type="text" value={safeUri} readOnly className="url col-8 col" id="safe-uri" ref={(i)=>this.safeUriInput = i}/>
-        <button onClick={this.handleCopyClick} className="copy-button paper-btn pseudo-submit-button center col-2">{this.state.copyButtonText}</button>
-        <a href={safeUri} className="paper-btn pseudo-submit-button center col-2 col">Go see it</a>
+        <button onClick={this.handleCopyClick} className="copy-button paper-btn pseudo-submit-button center col-2 hoverlike-box-shadow">{this.state.copyButtonText}</button>
+        <a href={safeUri} className="paper-btn pseudo-submit-button center col-2 col hoverlike-box-shadow">Go see it</a>
       </div>
     );
   }
   renderError() {
+    const message = this.state.error.friendlyMessage ||
+       "Sorry, there was a problem. Try again! :(";
     return (
       <div className="row">
-        <div className="col sm-12 border border-danger background-danger text-danger">Sorry, there was a problem. Try again! :(</div>
+        <div className="col sm-12 border border-danger background-danger text-danger">{message}</div>
       </div>
     )
   }
