@@ -22,7 +22,7 @@ class App extends Component {
     };
     const apiParams = {
       uriPrePath: inferBaseUri(), 
-      apiBaseUri: "https://m4np7k4snf.execute-api.us-east-1.amazonaws.com/dev/"
+      apiBaseUri: "https://api.nsfwnsfw.com/"
     }
     this.api = createApi(apiParams);
   }
